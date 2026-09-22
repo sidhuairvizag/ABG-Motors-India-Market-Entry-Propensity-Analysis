@@ -128,23 +128,23 @@ ABG-Motors-India-Market-Entry-Propensity-Analysis/
 
 ## 5. Method
 
-### Step 0 — Setup
+### Step 1 — Setup
 
 pandas, numpy, scikit-learn, XGBoost, matplotlib, seaborn, plotly, openpyxl.
 
-### Step 1 — Load and inspect
+### Step 2 — Load and inspect
 
 Confirm shapes, columns, and that India has no target. India is a scoring problem, not a supervised India model.
 
-### Step 2 — Quality checks
+### Step 3 — Quality checks
 
 Missing-value audit on both files. Descriptive statistics. Group-by aggregates in the same shape a SQL analyst would write: counts, purchase rate, mean income, mean age by gender and by AGE_SEG.
 
-### Step 3 — Feature rules (locked to the brief)
+### Step 4 — Feature rules (locked to the brief)
 
 Same AGE_SEG bins on both markets. India car age is computed from `DT_MAINT` against 1 July 2019 so the two markets share a definition.
 
-### Step 4 — Exploratory analysis on the labeled market
+### Step 5 — Exploratory analysis on the labeled market
 
 Japan purchase rate by AGE_SEG is the dominant pattern:
 
@@ -310,5 +310,56 @@ Python 3. Packages in `requirements.txt`:
 - plotly
 - openpyxl
 
+1. Place `JPN Data.xlsx` and `IN_Data.xlsx` next to the notebook.
+2. Run `ABG-Motors-India-Market-Entry-Propensity-Analysis.ipynb` top to bottom.
+3. The notebook writes:
+   - `Indian_Scored_Customers.csv`
+   - `Logistic_Coefficients.csv`
+   - `Model_Performance_Comparison.csv`
+4. Open the Tableau workbook against `Indian_Scored_Customers.csv`. The probability-threshold parameter defaults to 0.50 and ranges 0.50–0.90 in steps of 0.05.
 
 ---
+
+## 10. What this project does not claim
+
+- It does not claim a nationwide India sales forecast.
+- It does not treat `ANN_INCOME` as the same currency unit across countries.
+- It does not use India outcomes in training (there are none).
+- It does not treat p >= 0.50 as a calibrated 50% chance after domain shift.
+- It does not claim causality (“raising income causes purchase”).
+- It does not tune XGBoost until it looks like a competition medal. The comparison model is a sanity check.
+- It does not hide the gap between Japan’s actual 57.6% purchase rate and India’s unadjusted mean score of 86%. That gap is why the aligned scenario and the pilot language exist.
+
+---
+
+## 11. Next work after a pilot
+
+- Collect labeled Indian outcomes from the pilot and measure lift by score decile.
+- Recalibrate probabilities on India rather than transferring the Japan intercept and income scale.
+- Add features the current brief does not contain (city tier, existing brand, household size, credit band) only after the pilot shows the AGE_SEG ranking is stable.
+- Cost a contact policy: expected value minus campaign cost by threshold, not a single 0.50 cutoff.
+
+---
+
+## 12. Skills this case is meant to demonstrate
+
+- Framing a market-entry hurdle as expected value, not as accuracy.
+- SQL-style aggregation and data-quality checks before modeling.
+- Feature contracts shared across two markets (bin definitions, analysis date).
+- Train/test discipline on the only labeled market.
+- Interpretable primary model plus a stronger comparison model.
+- Domain-shift sensitivity instead of silent transfer.
+- Threshold tables a CRM team can use.
+- Dashboards that lead with the decision and put caveats on the same page as the KPI.
+
+Stack: Python (pandas, scikit-learn, XGBoost, plotly) and Tableau.
+
+---
+
+## Reproduction note
+
+Raw files are `JPN Data.xlsx` and `IN_Data.xlsx`.
+
+All scored columns and metric tables in this README are produced from those files by the notebook.
+
+If a number in a slide does not match `Indian_Scored_Customers.csv` or `Model_Performance_Comparison.csv`, the CSV wins.
