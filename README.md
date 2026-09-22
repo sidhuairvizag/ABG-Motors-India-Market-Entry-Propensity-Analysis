@@ -304,15 +304,14 @@ Run notebook/ABG-Motors-India-Market-Entry-Propensity-Analysis.ipynb with JPN Da
 
 requirements.txt
 
-pandas
-
-numpy
-scikit-learn
-xgboost
-matplotlib
-seaborn
-plotly
-openpyxl
+- pandas
+- numpy
+- scikit-learn
+- xgboost
+- matplotlib
+- seaborn
+- plotly
+- openpyxl
 
 
 ---
