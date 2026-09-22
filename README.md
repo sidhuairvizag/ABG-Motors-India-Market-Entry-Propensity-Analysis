@@ -303,6 +303,7 @@ pip install -r requirements.txt
 Run notebook/ABG-Motors-India-Market-Entry-Propensity-Analysis.ipynb with JPN Data.xlsx and IN_Data.xlsx in the notebook working folder. 
 
 requirements.txt
+
 pandas
 numpy
 scikit-learn
@@ -311,4 +312,6 @@ matplotlib
 seaborn
 plotly
 openpyxl
+
+
 ---
